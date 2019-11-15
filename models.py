@@ -141,5 +141,7 @@ def train_KNN(train_data,test_data,encoder,debug=False):
     print("Best values are: Neighbours = " + str(n_sel) + ", Weighting : " + w_sel + ", Accuracy = " + str(acc_sel))
 
 
-train_data, test_data, encoder = get_XY(args.dataset, encoder_kind="LABEL", scaling_kind="STANDARDIZE", debug=True)
-train_SVM(train_data, test_data, encoder)
+if __name__ == "__main__":
+    train_data, test_data, encoder = get_XY(args.dataset, encoder_kind="LABEL", 
+        scaling_kind="STANDARDIZE", force_update=True, debug=True)
+    train_SVM(train_data, test_data, encoder)

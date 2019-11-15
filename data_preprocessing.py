@@ -230,4 +230,5 @@ def label_dataset(df: type(pd.DataFrame()), debug: bool = False) -> type(pd.Data
     return df
 
 
-# get_dataset(args.dataset, True, True)
+if __name__ == "__main__":
+    get_dataset(args.dataset, force_update = True, debug = True)

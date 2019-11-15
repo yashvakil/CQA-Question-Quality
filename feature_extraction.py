@@ -243,4 +243,6 @@ def get_train_test(dirpath: str, force_update: bool = False, debug: bool = False
 
     return train_df, test_df
 
-# get_train_test(args.dataset, True, True)
+
+if __name__ == "__main__":
+    get_train_test(args.dataset, force_update = True, debug = True)
