@@ -22,6 +22,7 @@ def get_dataset(dirpath: str, force_update: bool = False, debug: bool = False) -
         if debug:
             print("Saving Dataset")
         df.to_csv(filepath, index=False)
+        df = typecast_dataset(df, debug)
         return df
 
     if debug:
@@ -176,11 +177,22 @@ def typecast_dataset(df: type(pd.DataFrame()), debug: bool = False) -> type(pd.D
     :param debug: Print debug statements
     :return: A typecasted Pandas Dataframe containing the dataset
     """
+    """
     df['AnswerCount'] = df['AnswerCount'].replace([None], ['0'])
     df['CommentCount'] = df['CommentCount'].replace([None], ['0'])
     df['FavoriteCount'] = df['FavoriteCount'].replace([None], ['0'])
     df['Score'] = df['Score'].replace([None], ['0'])
     df['ViewCount'] = df['ViewCount'].replace([None], ['0'])
+    """
+
+    if debug:
+        print("Typecasting Dataset")
+
+    df['AnswerCount'] = df['AnswerCount'].fillna('0')
+    df['CommentCount'] = df['CommentCount'].fillna('0')
+    df['FavoriteCount'] = df['FavoriteCount'].fillna('0')
+    df['Score'] = df['Score'].fillna('0')
+    df['ViewCount'] = df['ViewCount'].fillna('0')
 
     return df.astype({
         'Id': 'int64',
