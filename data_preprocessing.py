@@ -147,6 +147,7 @@ def build_dataset_combine(debug: bool = False) -> type(pd.DataFrame):
             WHERE PostTypeId = 1 
                 AND CreationDate BETWEEN '10/01/2018 00:00:01' and '12/31/2018 23:59:59'
                 AND LastEditDate IS NULL
+                AND LastActivityDate BETWEEN '10/01/2018 00:00:01' and '06/30/2019 23:59:59'
                 AND ViewCount > 0
                 AND DeletionDate IS NULL
         )
