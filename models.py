@@ -1,7 +1,7 @@
 import numpy as np
 import os
-from sklearn import svm
-from sklearn import neighbors
+from sklearn import svm, neighbors
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler, MinMaxScaler
@@ -141,7 +141,25 @@ def train_KNN(train_data,test_data,encoder,debug=False):
     print("Best values are: Neighbours = " + str(n_sel) + ", Weighting : " + w_sel + ", Accuracy = " + str(acc_sel))
 
 
+def train_MLP(train_data,test_data, debug=False):
+
+    (x_train, y_train) = train_data
+    (x_test, y_test) = test_data
+
+    print('--------------------------------------------------MLP----------------------------------------------------')
+    clf = MLPClassifier(hidden_layer_sizes=(100,50), max_iter=1000,activation = 'relu',
+                        solver='adam',random_state=1, verbose=True)
+    clf = clf.fit(x_train, y_train)
+    print("Training completed")
+
+    # checking the classifier accuracy
+    prediction = clf.predict(x_test)
+    score = accuracy_score(y_test, prediction)
+    print("Test Set accuracy score: " + str(score * 100))
+    print('---------------------------------------------------------------------------------------------------------')
+
+
 if __name__ == "__main__":
     train_data, test_data, encoder = get_XY(args.dataset, encoder_kind="LABEL", 
-        scaling_kind="STANDARDIZE", force_update=True, debug=True)
-    train_KNN(train_data, test_data, encoder)
+        scaling_kind="STANDARDIZE", force_update=False, debug=True)
+    train_MLP(train_data, test_data, encoder)
