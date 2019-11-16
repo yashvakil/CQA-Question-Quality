@@ -144,4 +144,4 @@ def train_KNN(train_data,test_data,encoder,debug=False):
 if __name__ == "__main__":
     train_data, test_data, encoder = get_XY(args.dataset, encoder_kind="LABEL", 
         scaling_kind="STANDARDIZE", force_update=True, debug=True)
-    train_SVM(train_data, test_data, encoder)
+    train_KNN(train_data, test_data, encoder)

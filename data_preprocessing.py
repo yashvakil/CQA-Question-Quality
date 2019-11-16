@@ -220,19 +220,20 @@ def label_dataset(df: type(pd.DataFrame()), debug: bool = False) -> type(pd.Data
         print("Calculating PI Score")
 
     df['PI'] = df.apply(calc_piscore, axis=1)
-    avg_pi = df['PI'].mean()
+    # avg_pi = df['PI'].mean()
+    avg_pi = 0
 
     def label(row):
-        if row['PI'] >= avg_pi:
-            if pd.isnull(row['AcceptedAnswerId']):
-                return 'Good'
-            else:
-                return 'Very Good'
-        else:
-            if pd.isnull(row['ClosedDate']):
+        if row['Score'] < 0:
+            if not pd.isna(row['ClosedDate']):
                 return 'Bad'
             else:
-                return 'Very Bad'
+                return 'VeryBad'
+        else:
+            if not pd.isna(row['AcceptedAnswerId']):
+                return 'Good'
+            else:
+                return 'VeryGood'
 
     if debug:
         print("Labeling Quality")
